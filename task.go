@@ -199,7 +199,7 @@ func (r *marathonClient) TaskEndpoints(name string, port int, healthCheck bool) 
 	// step: iterate the tasks and extract the dynamic ports
 	var list []string
 	for _, task := range application.Tasks {
-		if !healthCheck || task.allHealthChecksAlive() {
+		if !healthCheck || task.AllHealthChecksAlive() {
 			endpoint := fmt.Sprintf("%s:%d", task.Host, task.Ports[portIndex])
 			list = append(list, endpoint)
 		}
@@ -208,7 +208,7 @@ func (r *marathonClient) TaskEndpoints(name string, port int, healthCheck bool) 
 	return list, nil
 }
 
-func (r *Task) allHealthChecksAlive() bool {
+func (r *Task) AllHealthChecksAlive() bool {
 	// check: does the task have a health check result, if NOT, it's because the
 	// health of the task hasn't yet been performed, hence we assume it as DOWN
 	if !r.HasHealthCheckResults() {
